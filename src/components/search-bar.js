@@ -30,7 +30,7 @@ class SearchBar extends Component {
     }
 
     handleChange(event) {
-        this.setState({searchText:event.target.value});
+        this.setState({searchText: event.target.value});
     }
 
 }
