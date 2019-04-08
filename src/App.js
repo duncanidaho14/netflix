@@ -45,18 +45,20 @@ class App extends Component {
       this.setState({ persons });
     }.bind(this));
   }
-
+  receiveCallBack(movie) {
+    this.setState({ currentMovie: movie }, function() {
+      this.applyVideoToCurrentMovie();
+    });
+  }
   render() {
     const renderVideoList = () => {
       if(this.state.movieList.length >= 5){
-        return <VideoList movieList={this.state.movieList} />
+        return <VideoList movieList={this.state.movieList} callback={this.receiveCallBack.bind(this)} />
       }
     }
-    return (
-      <div>
-        <div className="search_bar">
-          <SearchBar />
-        </div>
+    const renderVideo = () => {
+      if(this.state.currentMovie.videoId) {
+        return (
           <div className="row">
             <div className="col-md-8">
               <div className="video">
@@ -66,14 +68,25 @@ class App extends Component {
                 <VideoDetail title={this.state.currentMovie.title} description={this.state.currentMovie.overview} />
               </div>
             </div>
+          </div>
+        );
+      } else {
+        return <div> Pas de données </div>
+      }
+    }
+    return (
+      <div>
+        <div className="search_bar">
+          <SearchBar />
+        </div>
+          { renderVideo() }
           <div className="col-md-4">
             {renderVideoList()}
           </div>
             <ul>
-            { this.state.persons.map(person => <li>{person.name}</li>)}
-          </ul>  
-          </div>     
-      </div>
+              { this.state.persons.map(person => <li>{person.name}</li>)}
+            </ul>  
+      </div>     
     )
   }
 }

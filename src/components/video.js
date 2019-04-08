@@ -1,9 +1,8 @@
 import React from 'react';
-import ResponsiveEmbed from 'react-bootstrap/ResponsiveEmbed';
 
 const BASE_URL = "https://www.youtube.com/embed/";
 
-const Video = ({ videoId }) => {
+const Video = ( {videoId} ) => {
     return (
         <div className="embed-responsive embed-responsive-16by9">
             <iframe height="315px" width="560px" title="mainvideo" src={`${BASE_URL}${videoId}`} frameBorder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowFullScreen />
