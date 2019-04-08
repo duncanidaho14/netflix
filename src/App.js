@@ -74,10 +74,10 @@ class App extends Component {
           <SearchBar />
         </div>
         <div className="row">
-          <div className="col-md-8">
+          <div className="col-md-7 video">
             { renderVideo() }
           </div>
-          <div className="col-md-4">
+          <div className="col-md-4 video">
             {renderVideoList()}
           </div>
         </div>
