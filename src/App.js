@@ -60,14 +60,8 @@ class App extends Component {
       if(this.state.currentMovie.videoId) {
         return (
           <div className="row">
-            <div className="col-md-8">
-              <div className="video">
                 <Video videoId={this.state.currentMovie.videoId} />
-              </div>
-              <div className="video">
                 <VideoDetail title={this.state.currentMovie.title} description={this.state.currentMovie.overview} />
-              </div>
-            </div>
           </div>
         );
       } else {
@@ -79,10 +73,14 @@ class App extends Component {
         <div className="search_bar">
           <SearchBar />
         </div>
-          { renderVideo() }
+        <div className="row">
+          <div className="col-md-8">
+            { renderVideo() }
+          </div>
           <div className="col-md-4">
             {renderVideoList()}
           </div>
+        </div>
             <ul>
               { this.state.persons.map(person => <li>{person.name}</li>)}
             </ul>  

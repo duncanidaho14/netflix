@@ -15,7 +15,6 @@ const VideoList = (props) => {
     )
     function receiveCallBack(movie) {
         props.callback(movie)
-        console.log('parent: ', movie)
     }
 }
 
