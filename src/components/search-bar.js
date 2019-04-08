@@ -21,8 +21,8 @@ class SearchBar extends Component {
                         <Nav.Link href="#pricing">A l'affiche</Nav.Link>
                     </Nav>
                     <Form inline>
-                        <FormControl type="text" className="mr-sm-2" onChange={this.handleChange.bind(this)} placeholder={this.state.placeHolder} />
-                        <Button variant="outline-light">Search</Button>
+                        <FormControl type="text" className="mr-sm-2" onKeyUp={this.handleChange.bind(this)} placeholder={this.state.placeHolder} />
+                        <Button onClick={this.handleOnClick.bind(this)} variant="outline-light">Chercher</Button>
                     </Form>
                 </Navbar>           
             </div>
@@ -33,6 +33,9 @@ class SearchBar extends Component {
         this.setState({searchText: event.target.value});
     }
 
+    handleOnClick(event) {
+        this.props.callback(this.state.searchText)
+    }
 }
 
 export default SearchBar;

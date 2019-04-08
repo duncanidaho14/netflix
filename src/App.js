@@ -6,15 +6,12 @@ import VideoDetail from './components/video-detail';
 import VideoList from './containers/video-list';
 import Video from './components/video';
 
-// const TEST = "https://api.themoviedb.org/3/movie/{movie_id}?api_key=<<api_key>>&language=en-US"
 const API_END_POINT = "https://api.themoviedb.org/3/";
 const API_KEY ="api_key=1fbf4e0b423ae93517034e0481f834d4";
 const POPULAR_MOVIES_URL = "discover/movie?language=fr&sort_by=popularity.desc&include_adult=false&append_to_response=videos,images";
 const MOVIE_VIDEO_URL = "append_to_response=videos&include_adult=false";
-// const fullHttp1 = "https://api.themoviedb.org/3/tv/{tv_id}?api_key=1fbf4e0b423ae93517034e0481f834d4&language=en-US"
-// const fullHttp2 = "/videos?api_key=1fbf4e0b423ae93517034e0481f834d4&language=en-US"
-// https://api.themoviedb.org/3/movie/297762?api_key=1fbf4e0b423ae93517034e0481f834d4&append_to_response=videos
-//axios.get(`${API_END_POINT}${POPULAR_MOVIES_URL}&${API_KEY}`).then(function(response) {
+const SEARCH_URL = "search/movie?language=fr&inculde_adult=false";
+
 class App extends Component {
   constructor(props) {
     super(props)
@@ -45,15 +42,29 @@ class App extends Component {
       this.setState({ persons });
     }.bind(this));
   }
-  receiveCallBack(movie) {
+  onClickListItem(movie) {
     this.setState({ currentMovie: movie }, function() {
       this.applyVideoToCurrentMovie();
     });
   }
+  onClickSearch(searchText) {
+    if(searchText) {
+      axios.get(`${API_END_POINT}${SEARCH_URL}&${API_KEY}&query=${searchText}`).then(function(response) {
+        if(response.data && response.data.results[0]) {
+          if(response.data.results[0].id !== this.state.currentMovie.id) {
+            this.setState({ currentMovie: response.data.results[0]}, () => {
+              this.applyVideoToCurrentMovie();
+            })
+          }
+        }
+      }.bind(this));
+    }
+    
+  }
   render() {
     const renderVideoList = () => {
       if(this.state.movieList.length >= 5){
-        return <VideoList movieList={this.state.movieList} callback={this.receiveCallBack.bind(this)} />
+        return <VideoList movieList={this.state.movieList} callback={this.onClickListItem.bind(this)} />
       }
     }
     const renderVideo = () => {
@@ -71,7 +82,7 @@ class App extends Component {
     return (
       <div>
         <div className="search_bar">
-          <SearchBar />
+          <SearchBar callback={this.onClickSearch.bind(this)} />
         </div>
         <div className="row">
           <div className="col-md-7 video">
