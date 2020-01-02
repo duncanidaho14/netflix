@@ -18,20 +18,20 @@ class SearchBar extends Component {
     render() {
         return (
             <div>
-                <Navbar collapseOnSelect expand="lg" bg="primary" variant="dark">
-                    <Navbar.Brand href="#home">Acceuil</Navbar.Brand>
+                <Navbar  expand="lg" bg="primary" variant="dark">
+                    <Navbar.Brand href="#">Accueil</Navbar.Brand>
+                    <Navbar.Toggle aria-controls="basic-navbar-nav" />
+                    <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="mr-auto">
-                        <Nav.Link href="#home">Acceuil</Nav.Link>
-                        <Nav.Link href="#features">Video</Nav.Link>
-                        <Nav.Link href="#pricing">A l'affiche</Nav.Link>
                     </Nav>
                     <Form inline>
                         <FormControl type="text" className="mr-sm-2" onKeyUp={this.handleChange.bind(this)} placeholder={this.state.placeHolder} />
                         <Button onClick={this.handleOnClick.bind(this)} variant="outline-light">Chercher</Button>
                     </Form>
-                </Navbar>           
+                    </Navbar.Collapse>
+                </Navbar>
             </div>
-        )    
+        )
     }
 
     handleChange(event) {

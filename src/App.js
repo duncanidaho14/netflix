@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import './App.css';
+import './App.scss';
 import SearchBar from './components/search-bar';
 import VideoDetail from './components/video-detail';
 import VideoList from './containers/video-list';
 import Video from './components/video';
 
 const API_END_POINT = "https://api.themoviedb.org/3/";
-const API_KEY ="api_key=1fbf4e0b423ae93517034e0481f834d4";
+const API_KEY = "api_key=1fbf4e0b423ae93517034e0481f834d4";
 const POPULAR_MOVIES_URL = "discover/movie?language=fr&sort_by=popularity.desc&include_adult=false&append_to_response=videos,images";
 const MOVIE_VIDEO_URL = "append_to_response=videos&include_adult=false";
 const SEARCH_URL = "search/movie?language=fr&inculde_adult=false";
@@ -23,7 +23,7 @@ class App extends Component {
   initMovies() {
     axios.get(`${API_END_POINT}${POPULAR_MOVIES_URL}&${API_KEY}`).then(function(response) {
       
-      this.setState({movieList: response.data.results.slice(1,8), currentMovie: response.data.results[0]}, function(){
+      this.setState({movieList: response.data.results.slice(1,10), currentMovie: response.data.results[0]}, function(){
         this.applyVideoToCurrentMovie();
       });
     }.bind(this));
@@ -36,12 +36,7 @@ class App extends Component {
       this.setState({ currentMovie: newCurrentMovieState })
     }.bind(this));
   }
-  personList() {
-    axios.get(`https://jsonplaceholder.typicode.com/users`).then(function(response) {
-      const persons = response.data;
-      this.setState({ persons });
-    }.bind(this));
-  }
+  
   onClickListItem(movie) {
     this.setState({ currentMovie: movie }, function() {
       this.applyVideoToCurrentMovie();
@@ -50,7 +45,7 @@ class App extends Component {
   }
   setRecommendation() {
     axios.get(`${API_END_POINT}movie/${this.state.currentMovie.id}/recommendations?${API_KEY}&language=fr`).then(function(response) {
-      this.setState({movieList: response.data.results.slice(0,5)});
+      this.setState({movieList: response.data.results.slice(0,7)});
     }.bind(this));
   }
   onClickSearch(searchText) {
@@ -70,7 +65,7 @@ class App extends Component {
   }
   render() {
     const renderVideoList = () => {
-      if(this.state.movieList.length >= 5){
+      if(this.state.movieList.length >= 7){
         return <VideoList movieList={this.state.movieList} callback={this.onClickListItem.bind(this)} />
       }
     }
@@ -79,7 +74,9 @@ class App extends Component {
         return (
           <div className="row">
                 <Video videoId={this.state.currentMovie.videoId} />
-                <VideoDetail title={this.state.currentMovie.title} description={this.state.currentMovie.overview} />
+                <div className="videoDetail">
+                  <VideoDetail title={this.state.currentMovie.title} description={this.state.currentMovie.overview} release_date={"sortie le " + this.state.currentMovie.release_date}  vote_average={this.state.currentMovie.vote_average + "/10"} vote_count={this.state.currentMovie.vote_count + " votant,"} />
+                </div>
           </div>
         );
       } else {
@@ -95,13 +92,10 @@ class App extends Component {
           <div className="col-md-7 video">
             { renderVideo() }
           </div>
-          <div className="col-md-4 video">
+          <div className="col-md-4 list-group-item video">
             {renderVideoList()}
           </div>
-        </div>
-            <ul>
-              { this.state.persons.map(person => <li>{person.name}</li>)}
-            </ul>  
+        </div> 
       </div>     
     )
   }
