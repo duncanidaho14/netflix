@@ -3,7 +3,7 @@ const IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w500/";
 
 const VideoListItem = (props) => {
     const {movie} = props;
-    return ( 
+    return (
             
             <li className="list-group-item" onClick={handleOnClick}>
                 <div className="media">
@@ -16,12 +16,10 @@ const VideoListItem = (props) => {
                     </div>
                 </div>
             </li>
-    )        
+    )
             function handleOnClick() {
-                props.callback(movie)  
+                props.callback(movie)
             }
-    
-
 }
 
 export default VideoListItem;

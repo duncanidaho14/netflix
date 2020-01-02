@@ -17,7 +17,7 @@ class App extends Component {
     super(props)
     this.state = {movieList:{}, currentMovie:{}, persons: []}
   }
-  componentWillMount() {
+  componentDidMount() {
     this.initMovies();
   }
   initMovies() {
