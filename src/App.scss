@@ -1,0 +1,36 @@
+@import "~bootstrap/scss/bootstrap";
+@import "styles/smallscreen.scss";
+
+.search_bar {
+    margin-top: 1%;
+    margin-bottom: 30px;
+}
+
+li:hover {
+    background-color: #E0E0E0;
+}
+
+.title_list_item {
+    padding-top: 40px;
+    text-align: center;
+    color: rgb(67, 28, 104);
+}
+
+.span_title_list_item {
+    font-size: 1rem;
+    font-weight: normal;
+    color: blueviolet;
+}
+
+.video {
+   margin-left: 40px; 
+}
+
+.span_videoDetail {
+    font-size: 1rem;
+    color: blueviolet;
+}
+
+h1 {
+    color: rgb(67, 28, 104);
+}
